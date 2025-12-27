@@ -1,0 +1,362 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Brand Colors */
+  --primary-green: #22C55E;
+  --light-green: #4ADE80;
+  --primary-yellow: #FACC15;
+  --gold-amber: #EAB308;
+  
+  /* Background & Surface Colors */
+  --main-background: #0F172A;
+  --card-background: #1E293B;
+  --surface-overlay: rgba(255, 255, 255, 0.05);
+  
+  /* Typography & UI Colors */
+  --primary-text: #FFFFFF;
+  --secondary-text: #9CA3AF;
+  --muted-text: #6B7280;
+  --border-color: rgba(229, 231, 235, 0.1);
+  
+  /* Functional Colors */
+  --success: #16A34A;
+  --pending: #EAB308;
+  --link-action: #3B82F6;
+  
+  /* Legacy variables for compatibility */
+  --background: #0F172A;
+  --foreground: #FFFFFF;
+  --primary: #22C55E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FACC15;
+  --secondary-foreground: #0F172A;
+  --muted: #1E293B;
+  --muted-foreground: #9CA3AF;
+  --card: #1E293B;
+  --card-foreground: #FFFFFF;
+  --border: rgba(229, 231, 235, 0.1);
+  --input: rgba(229, 231, 235, 0.1);
+  --ring: #22C55E;
+  --radius: 0.5rem;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+/* Scrollbar styling for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--main-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-background);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Custom Utilities */
+
+.container-custom {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  height: 2.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.btn-primary {
+  background-color: var(--primary-green);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: var(--light-green);
+}
+
+.btn-secondary {
+  background-color: var(--primary-yellow);
+  color: var(--main-background);
+}
+
+.btn-secondary:hover {
+  background-color: var(--gold-amber);
+}
+
+.btn-outline {
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--primary-text);
+}
+
+.btn-outline:hover {
+  background-color: var(--surface-overlay);
+  border-color: var(--primary-green);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--secondary-text);
+}
+
+.btn-ghost:hover {
+  background-color: var(--surface-overlay);
+  color: var(--primary-text);
+}
+
+/* Input Styles */
+.input-field {
+  display: flex;
+  height: 2.75rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--primary-text);
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.input-field::placeholder {
+  color: var(--muted-text);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--card-background);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.card-hover:hover {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 1px var(--primary-green);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--primary-green);
+}
+
+.badge-pending {
+  background-color: rgba(234, 179, 8, 0.1);
+  color: var(--pending);
+}
+
+.badge-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--link-action);
+}
+
+/* Glass Effect */
+.glass {
+  background: var(--surface-overlay);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-green), var(--primary-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animation Classes */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Fade In Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation Utility Classes */
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
+
+/* Stagger Animation Delays */
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Initial state for animations */
+.animate-on-scroll {
+  opacity: 0;
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--primary-green);
+  color: var(--main-background);
+}
