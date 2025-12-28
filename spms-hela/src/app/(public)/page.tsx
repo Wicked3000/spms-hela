@@ -216,7 +216,7 @@ export default function Home() {
             </div>
 
             {/* Key Statistics */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 max-w-4xl mx-auto">
+            <div className="hidden sm:grid grid-cols-1 gap-6 sm:grid-cols-3 max-w-4xl mx-auto">
               {stats.map((stat) => (
                 <div
                   key={stat.name}
