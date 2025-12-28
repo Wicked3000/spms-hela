@@ -106,11 +106,11 @@ export default async function StudentProfilePage({
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex items-center gap-5">
                 <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 text-3xl font-bold text-white">
-                  {student.first_name?.charAt(0)}{student.last_name?.charAt(0)}
+                  {student.student_name?.charAt(0)}
                 </div>
                 <div>
                   <h1 className="text-2xl md:text-3xl font-bold text-white">
-                    {student.first_name} {student.last_name}
+                    {student.student_name}
                   </h1>
                   <div className="flex flex-wrap items-center gap-4 mt-2 text-green-100">
                     <span className="flex items-center gap-1.5 text-sm">
@@ -160,7 +160,7 @@ export default async function StudentProfilePage({
                 <dl className="grid gap-6 sm:grid-cols-2">
                   <div>
                     <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</dt>
-                    <dd className="mt-1 text-white">{student.first_name} {student.last_name}</dd>
+                    <dd className="mt-1 text-white">{student.student_name}</dd>
                   </div>
                   <div>
                     <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</dt>

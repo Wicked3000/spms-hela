@@ -33,7 +33,7 @@ export async function GET(
 
   // Personal Info
   doc.setFontSize(16)
-  doc.text(`${student.first_name} ${student.last_name}`, 20, 40)
+  doc.text(student.student_name || 'Student', 20, 40)
   
   doc.setFontSize(12)
   doc.setTextColor(100)
@@ -68,7 +68,7 @@ export async function GET(
   return new NextResponse(pdfBuffer, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${student.first_name}_${student.last_name}_Profile.pdf"`,
+      'Content-Disposition': `attachment; filename="${(student.student_name || 'Student').replace(/ /g, '_')}_Profile.pdf"`,
     },
   })
 }
