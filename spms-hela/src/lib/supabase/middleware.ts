@@ -41,7 +41,9 @@ export async function updateSession(request: NextRequest) {
   // DEVICE DETECTION: Block Mobile Phones from specific Admin routes
   // We check before auth validation
   const userAgent = request.headers.get('user-agent') || ''
-  const isMobile = /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)
+  // Removed 'Android' to avoid blocking Tablets (which typically don't send 'Mobile' string)
+  // Android Phones DO send 'Mobile'.
+  const isMobile = /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)
   const isTablet = /iPad|Tablet/.test(userAgent)
 
   // Block only if it is Mobile AND NOT a Tablet
