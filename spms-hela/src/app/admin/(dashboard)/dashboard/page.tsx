@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Users, CheckCircle, XCircle, UserPlus, FileSpreadsheet, ArrowRight, GraduationCap, Wrench, AlertCircle } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 type DashboardStats = {
   totalStudents: number
   tvetStudents: number

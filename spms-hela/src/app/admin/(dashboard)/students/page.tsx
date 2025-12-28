@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Plus, Users, AlertCircle } from 'lucide-react'
 import StudentsTable from '@/components/admin/StudentsTable'
 
+export const dynamic = 'force-dynamic'
+
 type StudentProfile = {
   id: number
   student_name: string | null
