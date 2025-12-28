@@ -106,7 +106,7 @@ export default async function StudentProfilePage({
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex items-center gap-5">
                 <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/20 text-3xl font-bold text-white">
-                  {student.student_name?.charAt(0)}
+                  {student.student_name?.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <h1 className="text-2xl md:text-3xl font-bold text-white">
