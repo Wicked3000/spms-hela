@@ -177,16 +177,16 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/70"></div>
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 h-full flex items-center lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 h-full flex flex-col justify-start pt-32 sm:pt-40 md:flex-row md:items-center md:justify-center md:pt-0 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             {/* Badge */}
-            <div className="mb-8 inline-flex items-center space-x-2 rounded-full bg-green-500/20 backdrop-blur-sm px-6 py-2 text-sm font-semibold text-green-300 ring-1 ring-green-500/30">
-              <GraduationCap className="h-5 w-5" />
+            <div className="mb-6 sm:mb-8 inline-flex items-center space-x-2 rounded-full bg-green-500/20 backdrop-blur-sm px-4 py-1.5 sm:px-6 sm:py-2 text-xs sm:text-sm font-semibold text-green-300 ring-1 ring-green-500/30">
+              <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>FODE & TVET Education Portal</span>
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl font-bold tracking-tight text-white sm:text-7xl mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6">
               Building Futures in <span className="text-yellow-400">Hela Province</span>, Tari
             </h1>
 
