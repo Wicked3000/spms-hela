@@ -125,9 +125,17 @@ const initialFormData: StudentFormData = {
   mothers_phone_no: '',
 }
 
-export default function StudentForm() {
+interface StudentFormProps {
+  initialData?: any
+  studentId?: string
+}
+
+export default function StudentForm({ initialData, studentId }: StudentFormProps = {}) {
   const router = useRouter()
-  const [formData, setFormData] = useState<StudentFormData>(initialFormData)
+  const [formData, setFormData] = useState<StudentFormData>({
+    ...initialFormData,
+    ...initialData
+  })
   const [saving, setSaving] = useState(false)
 
   const handleChange = (field: keyof StudentFormData, value: string | number | null) => {
@@ -147,9 +155,36 @@ export default function StudentForm() {
     try {
       const supabase = createClient()
       
-      const { error } = await supabase
-        .from('student_profiles')
-        .insert([formData])
+      let error;
+      
+      if (studentId) {
+        // Update existing student
+        const { error: updateError } = await supabase
+          .from('student_profiles')
+          .update(formData)
+          .eq('id', studentId)
+        error = updateError
+      } else {
+        // Create new student
+        const { error: insertError } = await supabase
+          .from('student_profiles')
+          .insert([formData])
+        error = insertError
+      }
+
+      if (error) throw error
+
+      toast.success(studentId ? 'Student profile updated successfully!' : 'Student profile created successfully!')
+      
+      // Reset form if creating new, or redirect if updating
+      if (!studentId) {
+        setFormData(initialFormData)
+      }
+      
+      // Redirect to students list after 1 second
+      setTimeout(() => {
+        router.push('/admin/students')
+      }, 1000)
 
       if (error) throw error
 

@@ -7,13 +7,14 @@ import { FileDown, ArrowLeft, MapPin, GraduationCap, User, Calendar, Award, Wren
 export default async function StudentProfilePage({
   params
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const supabase = await createClient()
   const { data: student, error } = await supabase
     .from('student_profiles')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   const { data: { user } } = await supabase.auth.getUser()

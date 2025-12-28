@@ -6,13 +6,14 @@ import { notFound } from 'next/navigation'
 export default async function EditStudentPage({
     params
 }: {
-    params: { id: string }
+    params: Promise<{ id: string }>
 }) {
+    const { id } = await params
     const supabase = await createClient()
     const { data: student, error } = await supabase
         .from('student_profiles')
         .select('*')
-        .eq('id', params.id)
+        .eq('id', id)
         .single()
 
     if (error || !student) {
@@ -28,7 +29,7 @@ export default async function EditStudentPage({
                 </p>
             </div>
             {/* The form expects data matching the StudentData type, verify if mapping is needed */}
-            <StudentForm initialData={student} studentId={params.id} />
+            <StudentForm initialData={student} studentId={id} />
         </div>
     )
 }
