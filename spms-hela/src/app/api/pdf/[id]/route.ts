@@ -40,11 +40,12 @@ export async function GET(
   
   let yPos = 55
   
-  const addRow = (label: string, value: string) => {
+  const addRow = (label: string, value: string | number | null | undefined) => {
+      const text = (value === null || value === undefined || value === '') ? 'N/A' : String(value)
       doc.setFont('helvetica', 'bold')
       doc.text(`${label}:`, 20, yPos)
       doc.setFont('helvetica', 'normal')
-      doc.text(value || 'N/A', 70, yPos)
+      doc.text(text, 70, yPos)
       yPos += 10
   }
 
@@ -53,7 +54,7 @@ export async function GET(
   addRow('Location', `${student.district}, ${student.province}`)
   addRow('Last Grade', student.last_grade_completed)
   addRow('School Name', student.school_name)
-  addRow('Year Completed', student.year_completed ? String(student.year_completed) : 'N/A')
+  addRow('Year Completed', student.year_completed)
   addRow('Certificate No', student.certificate_no)
   if (student.tvet_trade) {
     addRow('TVET Trade', student.tvet_trade)
