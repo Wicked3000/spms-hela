@@ -46,6 +46,7 @@ SPMS-Hela is a modern web application designed to manage and showcase student pr
 5. ✅ **Policy Documents** - Upload and manage PDFs
 6. ✅ **Helpful Resources** - Resource links management
 7. ✅ **Contact Messages** - View form submissions
+8. ✅ **Device Access Control** - Strict mobile blocking for admin
 
 ### Cross-Cutting Features
 
@@ -59,6 +60,7 @@ SPMS-Hela is a modern web application designed to manage and showcase student pr
 8. ✅ **Real-time Updates** - Instant data synchronization
 9. ✅ **Error Handling** - Comprehensive error management
 10. ✅ **Loading States** - Professional loading indicators
+11. ✅ **UI Enhancements** - Smooth scroll, better mobile typography
 
 ---
 
@@ -130,6 +132,7 @@ Supabase (Backend-as-a-Service)
 - ✅ Secure session management
 - ✅ Protected admin routes
 - ✅ Middleware-based access control
+- ✅ Device-based routing (Admin restricted on mobile)
 
 ### Data Security
 
