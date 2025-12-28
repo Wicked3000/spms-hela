@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '../../../lib/supabase/client'
 import Link from 'next/link'
@@ -14,6 +14,20 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  // Client-side device detection
+  useEffect(() => {
+    const checkDevice = () => {
+      // 640px is standard tailwind 'sm' breakpoint. Phones are usually < 640px.
+      if (window.innerWidth <= 640) {
+        router.push('/device-restricted')
+      }
+    }
+    
+    checkDevice()
+    window.addEventListener('resize', checkDevice)
+    return () => window.removeEventListener('resize', checkDevice)
+  }, [router])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()

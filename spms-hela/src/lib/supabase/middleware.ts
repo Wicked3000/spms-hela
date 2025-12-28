@@ -38,6 +38,19 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // DEVICE DETECTION: Block Mobile Phones from specific Admin routes
+  // We check before auth validation
+  const userAgent = request.headers.get('user-agent') || ''
+  const isMobile = /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(userAgent)
+  const isTablet = /iPad|Tablet/.test(userAgent)
+
+  // Block only if it is Mobile AND NOT a Tablet
+  if (isMobile && !isTablet && request.nextUrl.pathname.startsWith('/admin')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/device-restricted'
+      return NextResponse.redirect(url)
+  }
+
   if (
     !user &&
     request.nextUrl.pathname.startsWith('/admin') &&

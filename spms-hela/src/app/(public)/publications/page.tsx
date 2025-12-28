@@ -277,7 +277,7 @@ export default function PublicationsPage() {
       {/* Stats Section */}
       <section className="py-16 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 max-w-3xl mx-auto">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-3xl font-bold text-white">{stat.value}</div>

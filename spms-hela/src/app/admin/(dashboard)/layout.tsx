@@ -8,7 +8,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className="flex h-screen bg-[#0F172A]">
-      <div className="hidden md:flex md:w-64 md:flex-col">
+      <div className="flex w-64 flex-col border-r border-white/10">
         <AdminSidebar />
       </div>
       <div className="flex flex-1 flex-col overflow-hidden">
