@@ -50,11 +50,14 @@ export async function GET(
 
   addRow('Gender', student.gender)
   addRow('Date of Birth', student.dob)
-  addRow('Province', student.province)
-  addRow('District', student.district)
-  addRow('Stream', student.stream)
-  addRow('Qualification', student.qualification)
-  addRow('TVET Trade', student.tvet_trade)
+  addRow('Location', `${student.district}, ${student.province}`)
+  addRow('Last Grade', student.last_grade_completed)
+  addRow('School Name', student.school_name)
+  addRow('Year Completed', student.year_completed ? String(student.year_completed) : 'N/A')
+  addRow('Certificate No', student.certificate_no)
+  if (student.tvet_trade) {
+    addRow('TVET Trade', student.tvet_trade)
+  }
 
   // Footer
   doc.setFontSize(10)
