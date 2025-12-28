@@ -126,7 +126,7 @@ const initialFormData: StudentFormData = {
 }
 
 interface StudentFormProps {
-  initialData?: any
+  initialData?: Partial<StudentFormData>
   studentId?: string
 }
 
