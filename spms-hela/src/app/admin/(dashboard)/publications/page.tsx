@@ -294,6 +294,7 @@ export default function PublicationsManagementPage() {
                   Category <span className="text-red-400">*</span>
                 </label>
                 <select
+                  aria-label="Select category"
                   required
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -337,6 +338,7 @@ export default function PublicationsManagementPage() {
                   Status
                 </label>
                 <select
+                  aria-label="Select status"
                   value={formData.status}
                   onChange={(e) => setFormData({ ...formData, status: e.target.value as 'Active' | 'Archived' })}
                   className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-green-500 focus:outline-none"
@@ -351,6 +353,7 @@ export default function PublicationsManagementPage() {
                   Published Month
                 </label>
                 <select
+                  aria-label="Select published month"
                   value={formData.published_month}
                   onChange={(e) => setFormData({ ...formData, published_month: e.target.value })}
                   className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-green-500 focus:outline-none"
@@ -395,6 +398,7 @@ export default function PublicationsManagementPage() {
                   PDF File <span className="text-red-400">*</span>
                 </label>
                 <input
+                  aria-label="Upload PDF file"
                   ref={fileInputRef}
                   type="file"
                   accept=".pdf"

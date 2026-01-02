@@ -316,6 +316,7 @@ export default function PolicyDocumentsManagementPage() {
                   Policy Type <span className="text-red-400">*</span>
                 </label>
                 <select
+                  aria-label="Select policy type"
                   required
                   value={formData.policy_type}
                   onChange={(e) => setFormData({ ...formData, policy_type: e.target.value })}
@@ -346,6 +347,7 @@ export default function PolicyDocumentsManagementPage() {
                   Last Updated <span className="text-red-400">*</span>
                 </label>
                 <input
+                  aria-label="Last updated date"
                   type="date"
                   required
                   value={formData.last_updated}
@@ -372,6 +374,7 @@ export default function PolicyDocumentsManagementPage() {
                   Status
                 </label>
                 <select
+                  aria-label="Select status"
                   value={formData.status}
                   onChange={(e) => setFormData({ ...formData, status: e.target.value as 'Active' | 'Archived' })}
                   className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-yellow-500 focus:outline-none"
@@ -386,6 +389,7 @@ export default function PolicyDocumentsManagementPage() {
                   PDF File {!editingPolicy && <span className="text-red-400">*</span>}
                 </label>
                 <input
+                  aria-label="Upload PDF file"
                   ref={fileInputRef}
                   type="file"
                   accept=".pdf"
