@@ -146,6 +146,7 @@ export default function StudentsTable({ initialStudents, totalCount, currentPage
     if (field === 'age' || field === 'no_of_children' || field === 'year_completed') {
       return (
         <input
+          aria-label={`Edit ${field}`}
           type="number"
           value={value as number || ''}
           onChange={(e) => handleFieldChange(field, e.target.value ? parseInt(e.target.value) : null)}
@@ -157,6 +158,7 @@ export default function StudentsTable({ initialStudents, totalCount, currentPage
     if (field === 'gender') {
       return (
         <select
+          aria-label={`Edit ${field}`}
           value={value as string || ''}
           onChange={(e) => handleFieldChange(field, e.target.value || null)}
           className="w-full bg-[#0F172A] border border-white/10 rounded px-2 py-1 text-white text-sm focus:border-green-500 focus:outline-none"
@@ -170,6 +172,7 @@ export default function StudentsTable({ initialStudents, totalCount, currentPage
 
     return (
       <input
+        aria-label={`Edit ${field}`}
         type="text"
         value={value as string || ''}
         onChange={(e) => handleFieldChange(field, e.target.value || null)}

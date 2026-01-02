@@ -217,6 +217,7 @@ body {
 /* Glass Effect */
 .glass {
   background: var(--surface-overlay);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
 }
