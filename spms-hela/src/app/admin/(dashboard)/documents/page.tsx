@@ -56,8 +56,8 @@ export default async function DocumentsPage() {
                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-slate-500">{(file.metadata?.size / 1024).toFixed(2)} KB</td>
                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-slate-500">{file.metadata?.mimetype}</td>
                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button className="text-slate-600 hover:text-slate-900 mr-4"><Download className="h-4 w-4" /></button>
-                                     <button className="text-red-600 hover:text-red-900"><Trash2 className="h-4 w-4" /></button>
+                                    <button aria-label="Download document" className="text-slate-600 hover:text-slate-900 mr-4"><Download className="h-4 w-4" /></button>
+                                     <button aria-label="Delete document" className="text-red-600 hover:text-red-900"><Trash2 className="h-4 w-4" /></button>
                                 </td>
                             </tr>
                         ))

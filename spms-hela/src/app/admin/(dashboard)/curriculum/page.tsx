@@ -331,6 +331,7 @@ export default function CurriculumManagementPage() {
                   Status
                 </label>
                 <select
+                  aria-label="Select status"
                   value={formData.status}
                   onChange={(e) => setFormData({ ...formData, status: e.target.value as 'Active' | 'Archived' })}
                   className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:border-green-500 focus:outline-none"
@@ -393,6 +394,7 @@ export default function CurriculumManagementPage() {
                       <span key={subject} className="inline-flex items-center gap-1 rounded-full bg-green-500/10 px-3 py-1 text-sm text-green-400 ring-1 ring-green-500/20">
                         {subject}
                         <button
+                          aria-label="Remove subject"
                           type="button"
                           onClick={() => handleRemoveSubject(subject)}
                           className="hover:text-red-400"
