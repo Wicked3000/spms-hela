@@ -1,6 +1,7 @@
 
 import Link from 'next/link'
 import HeroBanner from '@/components/HeroBanner'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import {
   CheckCircle, 
   FileText,
@@ -59,11 +60,13 @@ export default function AdmissionPage() {
       <section className="py-16 bg-[#1E293B]">
         <div className="container-custom">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 max-w-3xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
-              </div>
+            {stats.map((stat, index) => (
+              <ScrollReveal key={stat.label} delay={0.1 * index} direction="up" distance={20}>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -72,22 +75,26 @@ export default function AdmissionPage() {
       {/* Eligibility Requirements */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Before You Apply</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Eligibility Requirements</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Before You Apply</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Eligibility Requirements</p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-            {eligibilityRequirements.map((req) => (
-              <div key={req.name} className="flex items-start gap-4 rounded-xl bg-[#1E293B] p-5 ring-1 ring-white/10">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-green-500/10 ring-1 ring-green-500/20">
-                  <req.icon className="h-5 w-5 text-green-400" />
+            {eligibilityRequirements.map((req, index) => (
+              <ScrollReveal key={req.name} delay={0.05 * index} direction="up" distance={20}>
+                <div className="flex items-start gap-4 rounded-xl bg-[#1E293B] p-5 ring-1 ring-white/10 h-full hover:ring-green-500/50 transition-all">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-green-500/10 ring-1 ring-green-500/20">
+                    <req.icon className="h-5 w-5 text-green-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-sm">{req.name}</h3>
+                    <p className="text-sm text-gray-400 mt-1">{req.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-white text-sm">{req.name}</h3>
-                  <p className="text-sm text-gray-400 mt-1">{req.description}</p>
-                </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -96,22 +103,26 @@ export default function AdmissionPage() {
       {/* Application Process */}
       <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Simple & Straightforward</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Application Process</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Simple & Straightforward</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Application Process</p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
-            {applicationSteps.map((step) => (
-              <div key={step.step} className="relative">
-                <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 h-full">
-                  <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${step.color} text-white font-bold text-lg mb-4`}>
-                    {step.step}
+            {applicationSteps.map((step, index) => (
+              <ScrollReveal key={step.step} delay={0.1 * index} direction="right">
+                <div className="relative h-full">
+                  <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 h-full hover:ring-green-500/30 transition-all">
+                    <div className={`inline-flex h-12 w-12 items-center justify-center rounded-full ${step.color} text-white font-bold text-lg mb-4 shadow-lg shadow-white/5`}>
+                      {step.step}
+                    </div>
+                    <h3 className="text-base font-semibold text-white mb-2">{step.title}</h3>
+                    <p className="text-sm text-gray-400">{step.description}</p>
                   </div>
-                  <h3 className="text-base font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="text-sm text-gray-400">{step.description}</p>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import HeroBanner from '@/components/HeroBanner'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import { createClient } from '@/lib/supabase/client'
 import { 
   Globe, 
@@ -128,11 +129,13 @@ export default function CurriculumPage() {
       <section className="py-16 bg-[#1E293B]">
         <div className="container-custom">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 max-w-3xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
-              </div>
+            {stats.map((stat, index) => (
+              <ScrollReveal key={stat.label} delay={0.1 * index} direction="up" distance={20}>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -141,20 +144,24 @@ export default function CurriculumPage() {
       {/* Program Features */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Why Choose Our Programs</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Program Features</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Why Choose Our Programs</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Program Features</p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {programFeatures.map((feature) => (
-              <div key={feature.name} className="rounded-xl bg-[#1E293B] p-6 ring-1 ring-white/10 hover:ring-green-500/50 transition-all">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/10 ring-1 ring-green-500/20 mb-4">
-                  <feature.icon className="h-6 w-6 text-green-400" />
+            {programFeatures.map((feature, index) => (
+              <ScrollReveal key={feature.name} delay={0.1 * index} direction="down">
+                <div className="rounded-xl bg-[#1E293B] p-6 ring-1 ring-white/10 hover:ring-green-500/50 transition-all h-full">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/10 ring-1 ring-green-500/20 mb-4">
+                    <feature.icon className="h-6 w-6 text-green-400" />
+                  </div>
+                  <h3 className="font-semibold text-white mb-2">{feature.name}</h3>
+                  <p className="text-sm text-gray-400">{feature.description}</p>
                 </div>
-                <h3 className="font-semibold text-white mb-2">{feature.name}</h3>
-                <p className="text-sm text-gray-400">{feature.description}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -163,18 +170,20 @@ export default function CurriculumPage() {
       {/* Academic Pathway - FODE Programs */}
       <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500">
-                <GraduationCap className="h-5 w-5 text-white" />
+          <ScrollReveal>
+            <div className="mb-12">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500">
+                  <GraduationCap className="h-5 w-5 text-white" />
+                </div>
+                <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-wider">Academic Pathway</h2>
               </div>
-              <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-wider">Academic Pathway</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">FODE Programs</p>
+              <p className="mt-4 text-gray-400 max-w-3xl">
+                Flexible Open Distance Education programs designed to meet international secondary education standards and prepare students for university entrance.
+              </p>
             </div>
-            <p className="text-3xl font-bold text-white sm:text-4xl">FODE Programs</p>
-            <p className="mt-4 text-gray-400 max-w-3xl">
-              Flexible Open Distance Education programs designed to meet international secondary education standards and prepare students for university entrance.
-            </p>
-          </div>
+          </ScrollReveal>
 
           {fodeLoading ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -243,18 +252,20 @@ export default function CurriculumPage() {
       {/* Vocational Pathway - TVET Programs */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
-                <Wrench className="h-5 w-5 text-white" />
+          <ScrollReveal>
+            <div className="mb-12">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
+                  <Wrench className="h-5 w-5 text-white" />
+                </div>
+                <h2 className="text-sm font-semibold text-orange-400 uppercase tracking-wider">Vocational Pathway</h2>
               </div>
-              <h2 className="text-sm font-semibold text-orange-400 uppercase tracking-wider">Vocational Pathway</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">TVET Programs</p>
+              <p className="mt-4 text-gray-400 max-w-3xl">
+                Technical and Vocational Education and Training programs providing hands-on skills and industry-recognized certifications for career success.
+              </p>
             </div>
-            <p className="text-3xl font-bold text-white sm:text-4xl">TVET Programs</p>
-            <p className="mt-4 text-gray-400 max-w-3xl">
-              Technical and Vocational Education and Training programs providing hands-on skills and industry-recognized certifications for career success.
-            </p>
-          </div>
+          </ScrollReveal>
 
           {tvetLoading ? (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import HeroBanner from '@/components/HeroBanner'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import { createClient } from '@/lib/supabase/client'
 import { 
   FileText, 
@@ -278,11 +279,13 @@ export default function PublicationsPage() {
       <section className="py-16 bg-[#1E293B]">
         <div className="container-custom">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 max-w-3xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
-              </div>
+            {stats.map((stat, index) => (
+              <ScrollReveal key={stat.label} delay={0.1 * index} direction="up" distance={20}>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-white">{stat.value}</div>
+                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -291,10 +294,12 @@ export default function PublicationsPage() {
       {/* Published Documents Section */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="mb-12">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Document Library</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Published Documents</p>
-          </div>
+          <ScrollReveal>
+            <div className="mb-12">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Document Library</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Published Documents</p>
+            </div>
+          </ScrollReveal>
 
           {/* Search and Filter */}
           <div className="mb-8 flex flex-col md:flex-row gap-4">
@@ -453,10 +458,12 @@ export default function PublicationsPage() {
       {/* Featured Publications */}
       <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="mb-12">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Latest Updates</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Featured Publications</p>
-          </div>
+          <ScrollReveal>
+            <div className="mb-12">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Latest Updates</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Featured Publications</p>
+            </div>
+          </ScrollReveal>
           
           {featuredLoading ? (
             <div className="grid gap-6 md:grid-cols-2">
@@ -536,10 +543,12 @@ export default function PublicationsPage() {
       {/* Additional Resources */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Helpful Materials</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Additional Resources</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Helpful Materials</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Additional Resources</p>
+            </div>
+          </ScrollReveal>
           
           {resourcesLoading ? (
             <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
@@ -597,15 +606,17 @@ export default function PublicationsPage() {
       {/* Policy Documents */}
       <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="flex items-center gap-4 mb-12">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-500">
-              <Shield className="h-5 w-5 text-white" />
+          <ScrollReveal>
+            <div className="flex items-center gap-4 mb-12">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-500">
+                <Shield className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-sm font-semibold text-yellow-400 uppercase tracking-wider">Official Documents</h2>
+                <p className="text-2xl font-bold text-white">Policy Documents</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-sm font-semibold text-yellow-400 uppercase tracking-wider">Official Documents</h2>
-              <p className="text-2xl font-bold text-white">Policy Documents</p>
-            </div>
-          </div>
+          </ScrollReveal>
           
           {policiesLoading ? (
             <div className="grid gap-6 md:grid-cols-2 max-w-4xl">

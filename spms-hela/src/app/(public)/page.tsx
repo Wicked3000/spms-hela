@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import { 
   GraduationCap, 
   BookOpen, 
@@ -284,121 +285,132 @@ export default function Home() {
       </div>
 
       {/* Core Features Section */}
-      <div className="py-24 sm:py-32 bg-[#1E293B]">
+      <section className="py-24 sm:py-32 bg-[#1E293B]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-green-400">Platform Features</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Core Features
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-400">
-              Our platform provides everything needed to showcase and share student achievements with educational institutions worldwide.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="mx-auto max-w-2xl lg:text-center">
+              <h2 className="text-base font-semibold leading-7 text-green-400">Platform Features</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Core Features
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-400">
+                Our platform provides everything needed to showcase and share student achievements with educational institutions worldwide.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-              {features.map((feature) => (
-                <div key={feature.name} className="flex flex-col bg-[#0F172A] rounded-2xl p-6 ring-1 ring-white/5 hover:ring-green-500/50 transition-all">
-                  <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500">
-                      <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                    </div>
-                    {feature.name}
-                  </dt>
-                  <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-400">
-                    <p className="flex-auto">{feature.description}</p>
-                  </dd>
-                </div>
+              {features.map((feature, index) => (
+                <ScrollReveal key={feature.name} delay={0.1 * index}>
+                  <div className="flex flex-col bg-[#0F172A] rounded-2xl p-6 ring-1 ring-white/5 hover:ring-green-500/50 transition-all h-full">
+                    <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500">
+                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      {feature.name}
+                    </dt>
+                    <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-400">
+                      <p className="flex-auto">{feature.description}</p>
+                    </dd>
+                  </div>
+                </ScrollReveal>
               ))}
             </dl>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* University Opportunities Section */}
-      <div className="py-24 sm:py-32 bg-[#0F172A]">
+      <section className="py-24 sm:py-32 bg-[#0F172A]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <h2 className="text-base font-semibold leading-7 text-green-400">Global Reach</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              University Opportunities
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-400">
-              Partner universities accepting international students from Papua New Guinea.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="mx-auto max-w-2xl lg:text-center mb-16">
+              <h2 className="text-base font-semibold leading-7 text-green-400">Global Reach</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                University Opportunities
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-400">
+                Partner universities accepting international students from Papua New Guinea.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
             {universities.map((university, index) => (
-              <Link
-                key={university.name}
-                href={university.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative rounded-2xl bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-8 ring-1 ring-white/10 hover:ring-green-500/50 hover:shadow-xl hover:shadow-green-500/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                style={{ animationDelay: `${index * 100}ms` }}
+              <ScrollReveal 
+                key={university.name} 
+                delay={0.1 * (index % 3)} 
+                direction={index % 2 === 0 ? 'left' : 'right'}
               >
-                {/* Flag */}
-                <div className="flex items-center justify-center mb-6">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 group-hover:ring-green-500/30 transition-all overflow-hidden">
-                    <Image
-                      src={university.flag}
-                      alt={university.flagAlt}
-                      width={60}
-                      height={45}
-                      className="object-cover"
-                    />
+                <Link
+                  href={university.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative rounded-2xl bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-8 ring-1 ring-white/10 hover:ring-green-500/50 hover:shadow-xl hover:shadow-green-500/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full border-none block"
+                >
+                  {/* Flag */}
+                  <div className="flex items-center justify-center mb-6">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 group-hover:ring-green-500/30 transition-all overflow-hidden">
+                      <Image
+                        src={university.flag}
+                        alt={university.flagAlt}
+                        width={60}
+                        height={45}
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                {/* University Info */}
-                <div className="text-center">
-                  <h3 className="text-lg font-bold text-white group-hover:text-green-400 transition-colors mb-2">
-                    {university.name}
-                  </h3>
-                  <p className="text-sm text-gray-400 font-medium">{university.country}</p>
-                </div>
+                  {/* University Info */}
+                  <div className="text-center">
+                    <h3 className="text-lg font-bold text-white group-hover:text-green-400 transition-colors mb-2">
+                      {university.name}
+                    </h3>
+                    <p className="text-sm text-gray-400 font-medium">{university.country}</p>
+                  </div>
 
-                {/* External Link Icon */}
-                <div className="absolute top-6 right-6">
-                  <ExternalLink className="h-5 w-5 text-gray-600 group-hover:text-green-400 transition-colors" />
-                </div>
+                  {/* External Link Icon */}
+                  <div className="absolute top-6 right-6">
+                    <ExternalLink className="h-5 w-5 text-gray-600 group-hover:text-green-400 transition-colors" />
+                  </div>
 
-                {/* Decorative Element */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </Link>
+                  {/* Decorative Element */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Scholarships & Resources Section */}
-      <div className="py-24 sm:py-32 bg-[#1E293B]">
+      <section className="py-24 sm:py-32 bg-[#1E293B]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-yellow-400">Funding Your Future</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Scholarships & Resources
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-400">
-              Explore scholarship opportunities and resources to support your educational journey.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="mx-auto max-w-2xl lg:text-center">
+              <h2 className="text-base font-semibold leading-7 text-yellow-400">Funding Your Future</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Scholarships & Resources
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-400">
+                Explore scholarship opportunities and resources to support your educational journey.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:max-w-none lg:grid-cols-4">
-            {scholarships.map((item) => (
-              <div
-                key={item.name}
-                className="group relative rounded-2xl bg-[#0F172A] p-6 ring-1 ring-white/5 hover:ring-yellow-500/50 transition-all"
-              >
-                <div className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${item.color}`}>
-                  <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
+            {scholarships.map((item, index) => (
+              <ScrollReveal key={item.name} delay={0.1 * index} direction="down">
+                <div className="group relative rounded-2xl bg-[#0F172A] p-6 ring-1 ring-white/5 hover:ring-yellow-500/50 transition-all h-full">
+                  <div className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${item.color}`}>
+                    <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold leading-6 text-white group-hover:text-yellow-400 transition-colors">{item.name}</h3>
+                  <p className="mt-2 text-sm text-gray-400">{item.description}</p>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold leading-6 text-white group-hover:text-yellow-400 transition-colors">{item.name}</h3>
-                <p className="mt-2 text-sm text-gray-400">{item.description}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Platform Benefits Section */}
       <div className="py-24 sm:py-32 bg-gradient-to-br from-green-500/10 to-[#0F172A]">
@@ -424,53 +436,55 @@ export default function Home() {
       </div>
 
       {/* Testimonials Section */}
-      <div className="py-24 sm:py-32 bg-[#0F172A]">
+      <section className="py-24 sm:py-32 bg-[#0F172A]">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <h2 className="text-base font-semibold leading-7 text-green-400">Student Voices</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Success Stories
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-400">
-              Hear from students who have used SPMS Hela to advance their education and career paths.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="mx-auto max-w-2xl lg:text-center mb-16">
+              <h2 className="text-base font-semibold leading-7 text-green-400">Student Voices</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Success Stories
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-400">
+                Hear from students who have used SPMS Hela to advance their education and career paths.
+              </p>
+            </div>
+          </ScrollReveal>
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-4">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.author}
-                className="flex flex-col justify-between rounded-2xl bg-[#1E293B] p-8 ring-1 ring-white/10 hover:ring-green-500/50 transition-all hover:-translate-y-1 shadow-xl"
-              >
-                <div>
-                  <div className="flex gap-x-1 text-yellow-400 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <CheckCircle key={i} className="h-4 w-4 fill-current" />
-                    ))}
-                  </div>
-                  <blockquote className="text-lg leading-8 text-white italic">
-                    &ldquo;{testimonial.content}&rdquo;
-                  </blockquote>
-                </div>
-                <div className="mt-8 flex items-center gap-x-4 border-t border-white/5 pt-6">
-                  <div className="relative h-12 w-12 flex-shrink-0">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.author}
-                      fill
-                      className="rounded-full object-cover"
-                    />
-                  </div>
+            {testimonials.map((testimonial, index) => (
+              <ScrollReveal key={testimonial.author} delay={0.1 * index} direction="up" distance={30}>
+                <div className="flex flex-col justify-between rounded-2xl bg-[#1E293B] p-8 ring-1 ring-white/10 hover:ring-green-500/50 transition-all hover:-translate-y-1 shadow-xl h-full">
                   <div>
-                    <div className="text-base font-semibold text-white">{testimonial.author}</div>
-                    <div className="text-sm text-gray-400">{testimonial.role}</div>
-                    <div className="text-xs text-green-500 mt-1">{testimonial.location}</div>
+                    <div className="flex gap-x-1 text-yellow-400 mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <CheckCircle key={i} className="h-4 w-4 fill-current" />
+                      ))}
+                    </div>
+                    <blockquote className="text-lg leading-8 text-white italic">
+                      &ldquo;{testimonial.content}&rdquo;
+                    </blockquote>
+                  </div>
+                  <div className="mt-8 flex items-center gap-x-4 border-t border-white/5 pt-6">
+                    <div className="relative h-12 w-12 flex-shrink-0">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.author}
+                        fill
+                        className="rounded-full object-cover"
+                        priority
+                      />
+                    </div>
+                    <div>
+                      <div className="text-base font-semibold text-white">{testimonial.author}</div>
+                      <div className="text-sm text-gray-400">{testimonial.role}</div>
+                      <div className="text-xs text-green-500 mt-1">{testimonial.location}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* CTA Section */}
       <div 

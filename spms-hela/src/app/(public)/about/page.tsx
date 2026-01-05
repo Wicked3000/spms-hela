@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 import HeroBanner from '@/components/HeroBanner'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import { 
   Target, 
   Eye, 
@@ -84,11 +85,13 @@ export default function AboutPage() {
       <section className="py-16 bg-[#1E293B]">
         <div className="container-custom">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 max-w-4xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
-              </div>
+            {stats.map((stat, index) => (
+              <ScrollReveal key={stat.label} delay={0.1 * index} direction="up" distance={20}>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
+                  <div className="text-sm text-gray-400">{stat.label}</div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -97,60 +100,68 @@ export default function AboutPage() {
       {/* Our Purpose Section */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-green-500/10 ring-1 ring-green-500/20 mb-6">
-              <Target className="h-8 w-8 text-green-400" />
+          <ScrollReveal>
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-green-500/10 ring-1 ring-green-500/20 mb-6">
+                <Target className="h-8 w-8 text-green-400" />
+              </div>
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Our Purpose</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl mb-6">
+                Empowering students through innovative credentialing solutions
+              </p>
+              <p className="text-lg text-gray-400 leading-relaxed">
+                We believe every student deserves the chance to showcase their achievements on a global stage. 
+                Our platform makes this possible by providing verified, professional academic profiles.
+              </p>
             </div>
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Our Purpose</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl mb-6">
-              Empowering students through innovative credentialing solutions
-            </p>
-            <p className="text-lg text-gray-400 leading-relaxed">
-              We believe every student deserves the chance to showcase their achievements on a global stage. 
-              Our platform makes this possible by providing verified, professional academic profiles.
-            </p>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Mission and Vision Section */}
       <section id="mission-vision" className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Guiding Principles</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Mission & Vision</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Guiding Principles</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Mission & Vision</p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
             {/* Mission */}
-            <div className="rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#0F172A]/80 p-8 ring-1 ring-white/10">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500">
-                  <Target className="h-6 w-6 text-white" />
+            <ScrollReveal direction="left">
+              <div className="rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#0F172A]/80 p-8 ring-1 ring-white/10 h-full">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500">
+                    <Target className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Our Mission</h3>
                 </div>
-                <h3 className="text-xl font-bold text-white">Our Mission</h3>
+                <p className="text-gray-400 leading-relaxed">
+                  To empower every <span className="text-green-400 font-semibold">FODE</span> and <span className="text-green-400 font-semibold">TVET</span> student 
+                  in Hela Province with accurate, professional, and globally recognized academic profiles, 
+                  unlocking doors to higher education, scholarships, and meaningful employment worldwide.
+                </p>
               </div>
-              <p className="text-gray-400 leading-relaxed">
-                To empower every <span className="text-green-400 font-semibold">FODE</span> and <span className="text-green-400 font-semibold">TVET</span> student 
-                in Hela Province with accurate, professional, and globally recognized academic profiles, 
-                unlocking doors to higher education, scholarships, and meaningful employment worldwide.
-              </p>
-            </div>
+            </ScrollReveal>
             
             {/* Vision */}
-            <div className="rounded-2xl bg-gradient-to-br from-green-500 to-green-600 p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20">
-                  <Eye className="h-6 w-6 text-white" />
+            <ScrollReveal direction="right">
+              <div className="rounded-2xl bg-gradient-to-br from-green-500 to-green-600 p-8 h-full">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20">
+                    <Eye className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Our Vision</h3>
                 </div>
-                <h3 className="text-xl font-bold text-white">Our Vision</h3>
+                <p className="text-green-50 leading-relaxed">
+                  To be the leading national platform for student credentialing in Papua New Guinea, 
+                  ensuring learners from remote provinces like Hela have a digital identity that 
+                  commands global respect.
+                </p>
               </div>
-              <p className="text-green-50 leading-relaxed">
-                To be the leading national platform for student credentialing in Papua New Guinea, 
-                ensuring learners from remote provinces like Hela have a digital identity that 
-                commands global respect.
-              </p>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -158,20 +169,24 @@ export default function AboutPage() {
       {/* Core Values Section */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">What We Stand For</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Core Values</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">What We Stand For</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Core Values</p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-            {coreValues.map((value) => (
-              <div key={value.name} className="rounded-2xl bg-[#0F172A] p-8 ring-1 ring-white/10 text-center">
-                <div className={`inline-flex h-14 w-14 items-center justify-center rounded-xl ${value.color} mb-6`}>
-                  <value.icon className="h-7 w-7 text-white" />
+            {coreValues.map((value, index) => (
+              <ScrollReveal key={value.name} delay={0.1 * index} direction="up">
+                <div className="rounded-2xl bg-[#0F172A] p-8 ring-1 ring-white/10 text-center h-full hover:ring-green-500/50 transition-all">
+                  <div className={`inline-flex h-14 w-14 items-center justify-center rounded-xl ${value.color} mb-6 shadow-lg shadow-white/5`}>
+                    <value.icon className="h-7 w-7 text-white" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-3">{value.name}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{value.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-3">{value.name}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{value.description}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

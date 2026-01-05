@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import HeroBanner from '@/components/HeroBanner'
+import ScrollReveal from '@/components/layout/ScrollReveal'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import {
@@ -159,20 +160,24 @@ export default function ContactPage() {
       {/* Contact Information Section */}
       <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Get In Touch</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Contact Information</p>
-          </div>
-
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Get In Touch</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Contact Information</p>
+            </div>
+          </ScrollReveal>
+          
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-            {contactInfo.map((info) => (
-              <div key={info.title} className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 text-center">
-                <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${info.color} mb-4`}>
-                  <info.icon className="h-6 w-6 text-white" />
+            {contactInfo.map((info, index) => (
+              <ScrollReveal key={info.title} delay={index * 0.1} direction="up" distance={20}>
+                <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 text-center h-full hover:ring-green-500/50 transition-all">
+                  <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${info.color} mb-4 shadow-lg shadow-white/5`}>
+                    <info.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-white mb-2">{info.title}</h3>
+                  <p className="text-sm text-gray-400 whitespace-pre-line leading-relaxed">{info.details}</p>
                 </div>
-                <h3 className="font-semibold text-white mb-2">{info.title}</h3>
-                <p className="text-sm text-gray-400 whitespace-pre-line">{info.details}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
 
@@ -182,50 +187,53 @@ export default function ContactPage() {
       {/* Education Officers Section */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Our Team</h2>
-            <p className="text-3xl font-bold text-white sm:text-4xl">Education Officers</p>
-            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Our dedicated officers are here to assist with student verification, admissions, and program support across Hela Province.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Our Team</h2>
+              <p className="text-3xl font-bold text-white sm:text-4xl">Education Officers</p>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                Our dedicated officers are here to assist with student verification, admissions, and program support across Hela Province.
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
-            {educationOfficers.map((officer) => (
-              <div 
-                key={officer.name} 
-                className="group relative rounded-2xl bg-[#1E293B] p-2 ring-1 ring-white/10 overflow-hidden transition-all hover:-translate-y-2 hover:ring-green-500/50"
-              >
-                {/* Image container with overlay */}
-                <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-[#0F172A]">
-                  <Image
-                    src={officer.image}
-                    alt={officer.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-60"></div>
-                </div>
+            {educationOfficers.map((officer, index) => (
+              <ScrollReveal key={officer.name} delay={index * 0.1} direction="up">
+                <div 
+                  className="group relative rounded-2xl bg-[#1E293B] p-2 ring-1 ring-white/10 overflow-hidden transition-all hover:-translate-y-2 hover:ring-green-500/50 h-full"
+                >
+                  {/* Image container with overlay */}
+                  <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-[#0F172A]">
+                    <Image
+                      src={officer.image}
+                      alt={officer.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-60"></div>
+                  </div>
 
-                {/* Details */}
-                <div className="p-4">
-                  <p className="text-xs font-medium text-green-400 mb-1">{officer.role}</p>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
-                    {officer.name}
-                  </h3>
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs text-gray-500 flex items-center gap-2">
-                      <Building className="h-3 w-3" /> {officer.department}
-                    </p>
-                    <a 
-                      href={`mailto:${officer.email}`}
-                      className="text-xs text-gray-300 flex items-center gap-2 hover:text-green-400 transition-colors"
-                    >
-                      <Mail className="h-3 w-3" /> {officer.email}
-                    </a>
+                  {/* Details */}
+                  <div className="p-4">
+                    <p className="text-xs font-medium text-green-400 mb-1">{officer.role}</p>
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                      {officer.name}
+                    </h3>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-xs text-gray-500 flex items-center gap-2">
+                        <Building className="h-3 w-3" /> {officer.department}
+                      </p>
+                      <a 
+                        href={`mailto:${officer.email}`}
+                        className="text-xs text-gray-300 flex items-center gap-2 hover:text-green-400 transition-colors"
+                      >
+                        <Mail className="h-3 w-3" /> {officer.email}
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -237,12 +245,13 @@ export default function ContactPage() {
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-12 lg:grid-cols-2">
               {/* Form */}
-              <div>
-                <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Send a Message</h2>
-                <p className="text-3xl font-bold text-white sm:text-4xl mb-6">Contact Form</p>
-                <p className="text-gray-400 mb-8">
-                  Fill out the form below and we&apos;ll respond as soon as possible.
-                </p>
+              <ScrollReveal direction="left">
+                <div>
+                  <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Send a Message</h2>
+                  <p className="text-3xl font-bold text-white sm:text-4xl mb-6">Contact Form</p>
+                  <p className="text-gray-400 mb-8">
+                    Fill out the form below and we&apos;ll respond as soon as possible.
+                  </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
@@ -338,9 +347,11 @@ export default function ContactPage() {
                   </button>
                 </form>
               </div>
+              </ScrollReveal>
 
               {/* Common Inquiries & Map Side */}
-              <div className="space-y-6">
+              <ScrollReveal direction="right">
+                <div className="space-y-6">
                 <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10">
                   <div className="flex items-center gap-3 mb-4">
                     <HelpCircle className="h-5 w-5 text-green-400" />
@@ -372,7 +383,7 @@ export default function ContactPage() {
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63680.89847892!2d142.9!3d-5.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x699f1c8b8b8b8b8b%3A0x1!2sTari%2C%20Hela%20Province%2C%20Papua%20New%20Guinea!5e0!3m2!1sen!2s!4v1234567890"
                       width="100%"
                       height="300"
-                      style={{ border: 0 }}
+                      className="border-0"
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
@@ -383,7 +394,8 @@ export default function ContactPage() {
                     Hela Province Education Office, Tari, Hela Province, Papua New Guinea
                   </p>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -391,8 +403,7 @@ export default function ContactPage() {
 
       {/* CTA Section */}
       <section 
-        className="relative py-20 lg:py-24 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(https://i.ibb.co/wZ8HqgQG/magic-moon.jpg)' }}
+        className="relative py-20 lg:py-24 bg-cover bg-center bg-no-repeat bg-[url('https://i.ibb.co/wZ8HqgQG/magic-moon.jpg')]"
       >
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/60"></div>
