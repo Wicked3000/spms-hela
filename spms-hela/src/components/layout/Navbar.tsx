@@ -63,7 +63,10 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-2">
+        <div 
+          className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-2"
+          suppressHydrationWarning
+        >
           <a
             href="https://wa.me/675XXXXXXXX"
             target="_blank"
@@ -110,7 +113,10 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <div className="flex items-center justify-around py-4 border-t border-white/5 mt-4">
+            <div 
+              className="flex items-center justify-around py-4 border-t border-white/5 mt-4"
+              suppressHydrationWarning
+            >
               <a
                 href="https://wa.me/675XXXXXXXX"
                 target="_blank"
