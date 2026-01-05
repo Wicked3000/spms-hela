@@ -48,22 +48,6 @@ const contactInfo = [
   },
 ]
 
-const socialMedia = [
-  {
-    name: 'WhatsApp',
-    icon: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
-    link: 'https://wa.me/675XXXXXXXX', // Replace with actual WhatsApp number
-    color: 'bg-green-500',
-    description: 'Chat with us on WhatsApp'
-  },
-  {
-    name: 'Facebook',
-    icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg',
-    link: 'https://facebook.com/helaeducation', // Replace with actual Facebook page
-    color: 'bg-blue-600',
-    description: 'Follow us on Facebook'
-  },
-]
 
 const commonInquiries = [
   { title: 'Student Profile Creation', description: 'How to create and verify your student profile', icon: Users },
@@ -192,41 +176,6 @@ export default function ContactPage() {
             ))}
           </div>
 
-          {/* Social Media */}
-          <div className="mt-16 max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h3 className="text-xl font-bold text-white mb-2">Connect With Us</h3>
-              <p className="text-gray-400">Follow us on social media for updates and announcements</p>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 max-w-2xl mx-auto">
-              {socialMedia.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 hover:ring-white/20 transition-all hover:-translate-y-1"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${social.color} p-3`}>
-                      <Image
-                        src={social.icon}
-                        alt={`${social.name} icon`}
-                        width={32}
-                        height={32}
-                        className="brightness-0 invert"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-white group-hover:text-green-400 transition-colors">{social.name}</h4>
-                      <p className="text-sm text-gray-400">{social.description}</p>
-                    </div>
-                    <Globe className="h-5 w-5 text-gray-600 group-hover:text-green-400 transition-colors" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
