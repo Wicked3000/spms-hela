@@ -72,6 +72,37 @@ const commonInquiries = [
   { title: 'Technical Support', description: 'Help with platform access and usage', icon: HelpCircle },
 ]
 
+const educationOfficers = [
+  {
+    name: 'Mr. James Tari',
+    role: 'Senior Education Officer',
+    email: 'j.tari@helaprovince.gov.pg',
+    image: '/images/officers/senior_officer.png',
+    department: 'Hela Education Office'
+  },
+  {
+    name: 'Ms. Sarah Kila',
+    role: 'FODE Coordinator',
+    email: 's.kila@helaprovince.gov.pg',
+    image: '/images/officers/fode_coordinator.png',
+    department: 'FODE Tari'
+  },
+  {
+    name: 'Mr. David Hela',
+    role: 'TVET Specialist',
+    email: 'd.hela@helaprovince.gov.pg',
+    image: '/images/officers/tvet_specialist.png',
+    department: 'TVET Support'
+  },
+  {
+    name: 'Mrs. Mary Mondo',
+    role: 'Verification Officer',
+    email: 'm.mondo@helaprovince.gov.pg',
+    image: '/images/officers/verification_officer.png',
+    department: 'Records & Admissions'
+  },
+]
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     full_name: '',
@@ -141,7 +172,7 @@ export default function ContactPage() {
         subtitle="Get in touch with us for support, information, or assistance regarding FODE and TVET programs."
       />
 
-      {/* Contact Information */}
+      {/* Contact Information Section */}
       <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
           <div className="text-center mb-16">
@@ -199,8 +230,60 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form */}
+      {/* Education Officers Section */}
       <section className="py-20 lg:py-28 bg-[#0F172A]">
+        <div className="container-custom">
+          <div className="text-center mb-16">
+            <h2 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-3">Our Team</h2>
+            <p className="text-3xl font-bold text-white sm:text-4xl">Education Officers</p>
+            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              Our dedicated officers are here to assist with student verification, admissions, and program support across Hela Province.
+            </p>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+            {educationOfficers.map((officer) => (
+              <div 
+                key={officer.name} 
+                className="group relative rounded-2xl bg-[#1E293B] p-2 ring-1 ring-white/10 overflow-hidden transition-all hover:-translate-y-2 hover:ring-green-500/50"
+              >
+                {/* Image container with overlay */}
+                <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-[#0F172A]">
+                  <Image
+                    src={officer.image}
+                    alt={officer.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-60"></div>
+                </div>
+
+                {/* Details */}
+                <div className="p-4">
+                  <p className="text-xs font-medium text-green-400 mb-1">{officer.role}</p>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                    {officer.name}
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-xs text-gray-500 flex items-center gap-2">
+                      <Building className="h-3 w-3" /> {officer.department}
+                    </p>
+                    <a 
+                      href={`mailto:${officer.email}`}
+                      className="text-xs text-gray-300 flex items-center gap-2 hover:text-green-400 transition-colors"
+                    >
+                      <Mail className="h-3 w-3" /> {officer.email}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form & Side Info Section */}
+      <section className="py-20 lg:py-28 bg-[#1E293B]">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-12 lg:grid-cols-2">
@@ -222,7 +305,7 @@ export default function ContactPage() {
                       required
                       value={formData.full_name}
                       onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                      className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
+                      className="w-full bg-[#0F172A] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
                       placeholder="Your full name"
                       disabled={submitting}
                     />
@@ -237,7 +320,7 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
+                      className="w-full bg-[#0F172A] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
                       placeholder="your.email@example.com"
                       disabled={submitting}
                     />
@@ -251,7 +334,7 @@ export default function ContactPage() {
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
+                      className="w-full bg-[#0F172A] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
                       placeholder="+675 XXX XXXX"
                       disabled={submitting}
                     />
@@ -266,7 +349,7 @@ export default function ContactPage() {
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
+                      className="w-full bg-[#0F172A] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none"
                       placeholder="What is this regarding?"
                       disabled={submitting}
                     />
@@ -281,7 +364,7 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       rows={6}
-                      className="w-full bg-[#1E293B] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none resize-none"
+                      className="w-full bg-[#0F172A] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-green-500 focus:outline-none resize-none"
                       placeholder="Please provide details about your inquiry..."
                       disabled={submitting}
                     />
@@ -307,9 +390,9 @@ export default function ContactPage() {
                 </form>
               </div>
 
-              {/* Common Inquiries */}
+              {/* Common Inquiries & Map Side */}
               <div className="space-y-6">
-                <div className="rounded-xl bg-[#1E293B] p-6 ring-1 ring-white/10">
+                <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10">
                   <div className="flex items-center gap-3 mb-4">
                     <HelpCircle className="h-5 w-5 text-green-400" />
                     <h3 className="font-semibold text-white">Common Inquiries</h3>
@@ -330,7 +413,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Google Map */}
-                <div className="rounded-xl bg-[#1E293B] p-6 ring-1 ring-white/10">
+                <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10">
                   <div className="flex items-center gap-3 mb-4">
                     <Globe className="h-5 w-5 text-green-400" />
                     <h3 className="font-semibold text-white">Our Location</h3>
