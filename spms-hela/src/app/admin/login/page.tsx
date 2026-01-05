@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '../../../lib/supabase/client'
 import Link from 'next/link'
-import { Loader2, Lock, Mail, GraduationCap, ArrowLeft, Shield } from 'lucide-react'
+import Image from 'next/image'
+import { Loader2, Lock, Mail, ArrowLeft, Shield } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function AdminLoginPage() {
@@ -74,19 +75,24 @@ export default function AdminLoginPage() {
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          {/* Logo */}
           <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center gap-3 mb-6">
-              <div className="h-12 w-12 bg-green-500 rounded-xl flex items-center justify-center">
-                <GraduationCap className="h-7 w-7 text-white" />
+            <Link href="/" className="inline-flex flex-col items-center gap-3 mb-6">
+              <div className="relative h-20 w-20 mb-2">
+                <Image 
+                  src="https://i.ibb.co/Kzb2wbx1/Hela-SPMS-Logo.png" 
+                  alt="Hela SPMS Logo" 
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <div className="text-left">
-                <span className="font-bold text-xl text-white">SPMS</span>
-                <span className="font-bold text-xl text-yellow-400 ml-1">Hela</span>
+              <div className="text-center">
+                <span className="font-bold text-2xl text-white">SPMS</span>
+                <span className="font-bold text-2xl text-yellow-400 ml-1">Hela</span>
               </div>
             </Link>
             <h1 className="text-2xl font-bold text-white">Admin Sign In</h1>
-            <p className="text-gray-400 mt-2">Access the administration dashboard</p>
+            <p className="text-gray-400 mt-1">Access the administration dashboard</p>
           </div>
 
           {/* Login Form */}

@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { School, Mail, Lock, Loader2 } from 'lucide-react'
+import { Mail, Lock, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function UniversityLoginPage() {
   const [email, setEmail] = useState('')
@@ -89,10 +90,22 @@ export default function UniversityLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo & Title */}
         <div className="text-center mb-8">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-500 mb-4">
-            <School className="h-8 w-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-white">University Portal</h1>
+          <Link href="/" className="inline-flex flex-col items-center gap-3">
+            <div className="relative h-20 w-20 mb-2">
+              <Image 
+                src="https://i.ibb.co/Kzb2wbx1/Hela-SPMS-Logo.png" 
+                alt="Hela SPMS Logo" 
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="text-center">
+              <span className="font-bold text-2xl text-white">SPMS</span>
+              <span className="font-bold text-2xl text-yellow-400 ml-1">Hela</span>
+            </div>
+          </Link>
+          <h1 className="text-3xl font-bold text-white mt-6">University Portal</h1>
           <p className="mt-2 text-gray-400">
             Access student profiles from Hela Province
           </p>
