@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { 
   Building2, 
@@ -11,7 +11,6 @@ import {
   Edit2, 
   Save, 
   X,
-  Trash2,
   Plus,
   Loader2,
   CheckCircle2,
@@ -35,17 +34,10 @@ export default function UniversitiesTable() {
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editForm, setEditForm] = useState<Partial<UserProfile>>({})
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [newUniEmail, setNewUniEmail] = useState('')
-  const [newUniName, setNewUniName] = useState('')
 
   const supabase = createClient()
 
-  useEffect(() => {
-    fetchUniversityProfiles()
-  }, [])
-
-  const fetchUniversityProfiles = async () => {
+  const fetchUniversityProfiles = useCallback(async () => {
     try {
       setLoading(true)
       const { data, error } = await supabase
@@ -54,15 +46,28 @@ export default function UniversitiesTable() {
         .eq('role', 'university')
         .order('created_at', { ascending: false })
 
-      if (error) throw error
+      if (error) {
+        console.error('Supabase Error Details:', {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+          hint: error.hint
+        })
+        throw error
+      }
       setProfiles(data || [])
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error fetching university profiles:', error)
-      toast.error('Failed to load university users')
+      const message = error instanceof Error ? error.message : 'Unknown error'
+      toast.error(`Failed to load university users: ${message}`)
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    fetchUniversityProfiles()
+  }, [fetchUniversityProfiles])
 
   const handleToggleStatus = async (id: string, currentStatus: boolean) => {
     try {
@@ -108,33 +113,7 @@ export default function UniversitiesTable() {
     }
   }
 
-  const handleAddUniversity = async (e: React.FormEvent) => {
-    e.preventDefault()
-    // Note: This only creates the PROFILE. The user must still be created in Auth Dashboard.
-    // However, this pre-authorizes the email.
-    toast.info('To complete this, make sure to also create an Auth User with this email in Supabase Dashboard.')
-    
-    try {
-      // Check if profile already exists
-      const { data: existing } = await supabase
-        .from('user_profiles')
-        .select('id')
-        .eq('email', newUniEmail)
-        .maybeSingle()
-
-      if (existing) {
-        toast.error('A profile with this email already exists')
-        return
-      }
-
-      // We can't generate a UUID easily here that matches Auth, 
-      // so we tell the user to use the Dashboard first or we'd need an Edge Function.
-      // For now, I'll provide instructions.
-      toast.error('Direct creation requires Supabase Auth UUID. Use the Dashboard first, then the profile is automatic.')
-    } catch (error) {
-      console.error('Add university error:', error)
-    }
-  }
+  // Direct creation is disabled as it requires manual Supabase Auth User creation first.
 
   if (loading) {
     return (
