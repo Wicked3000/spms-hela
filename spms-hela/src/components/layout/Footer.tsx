@@ -92,14 +92,6 @@ export default function Footer() {
                     <a href="tel:+67512345678" className="hover:text-green-400 transition-colors">(+675) 1234 5678</a>
                   </li>
                 </ul>
-                <div className="mt-6">
-                    <Link
-                      href="/admin/login"
-                      className="text-sm font-semibold text-green-400 hover:text-green-300 transition-colors"
-                    >
-                      Admin Sign In →
-                    </Link>
-                </div>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import { Menu, X, LogIn } from 'lucide-react'
+import { Menu, X, Facebook, Linkedin, MessageCircle } from 'lucide-react'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -63,13 +63,37 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link 
-            href="/admin/login" 
-            className="inline-flex items-center gap-2 rounded-lg bg-green-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-colors"
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-2">
+          <a
+            href="https://wa.me/675XXXXXXXX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-gray-400 hover:text-green-500 transition-colors"
+            title="Chat on WhatsApp"
+            aria-label="Chat on WhatsApp"
           >
-             <LogIn className="h-4 w-4" /> Staff Login
-          </Link>
+            <MessageCircle className="h-5 w-5" />
+          </a>
+          <a
+            href="https://facebook.com/helaeducation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-gray-400 hover:text-blue-500 transition-colors"
+            title="Follow on Facebook"
+            aria-label="Follow on Facebook"
+          >
+            <Facebook className="h-5 w-5" />
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+            title="Connect on LinkedIn"
+            aria-label="Connect on LinkedIn"
+          >
+            <Linkedin className="h-5 w-5" />
+          </a>
         </div>
       </nav>
       {/* Mobile menu */}
@@ -86,13 +110,38 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-             <Link
-                href="/admin/login"
-                className="block rounded-lg bg-green-500 px-3 py-2.5 text-base font-medium text-white text-center mt-4 hover:bg-green-400 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+            <div className="flex items-center justify-around py-4 border-t border-white/5 mt-4">
+              <a
+                href="https://wa.me/675XXXXXXXX"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-gray-400 hover:text-green-500 transition-colors"
+                title="Chat on WhatsApp"
+                aria-label="Chat on WhatsApp"
               >
-                Staff Login
-              </Link>
+                <MessageCircle className="h-6 w-6" />
+              </a>
+              <a
+                href="https://facebook.com/helaeducation"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-gray-400 hover:text-blue-500 transition-colors"
+                title="Follow on Facebook"
+                aria-label="Follow on Facebook"
+              >
+                <Facebook className="h-6 w-6" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+                title="Connect on LinkedIn"
+                aria-label="Connect on LinkedIn"
+              >
+                <Linkedin className="h-6 w-6" />
+              </a>
+            </div>
           </div>
         </div>
       )}
