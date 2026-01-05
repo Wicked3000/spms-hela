@@ -147,6 +147,37 @@ const benefits = [
   { name: 'Verified Records', description: 'Official education records for Tari students', icon: CheckCircle },
 ]
 
+const testimonials = [
+  {
+    content: "SPMS Hela helped me showcase my academic achievements to Australian universities. I'm now studying Engineering in Melbourne!",
+    author: "Peter Mond",
+    role: "Engineering Student",
+    image: "/images/testimonials/peter_mond.png",
+    location: "Tari, Hela Province"
+  },
+  {
+    content: "The professional PDF export made my application process so much easier. It's a game-changer for all Hela students.",
+    author: "Grace Tari",
+    role: "Public Health Major",
+    image: "/images/testimonials/grace_tari.png",
+    location: "Komo-Magarima, Hela"
+  },
+  {
+    content: "Verified records through this portal gave me the edge I needed for my scholarship application to Fiji. So grateful!",
+    author: "John Kila",
+    role: "IT Specialist",
+    image: "/images/testimonials/john_kila.png",
+    location: "Koroba-Kopiago, Hela"
+  },
+  {
+    content: "A fantastic platform that finally bridges the gap between our local education and global opportunities. Highly efficient!",
+    author: "Sarah Hela",
+    role: "Education Graduate",
+    image: "/images/testimonials/sarah_hela.png",
+    location: "Tari-Pori, Hela"
+  },
+]
+
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -386,6 +417,55 @@ export default function Home() {
                 </div>
                 <h3 className="mt-6 text-base font-semibold leading-7 text-white">{benefit.name}</h3>
                 <p className="mt-2 text-sm text-gray-400">{benefit.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="py-24 sm:py-32 bg-[#0F172A]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center mb-16">
+            <h2 className="text-base font-semibold leading-7 text-green-400">Student Voices</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Success Stories
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-400">
+              Hear from students who have used SPMS Hela to advance their education and career paths.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-4">
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial.author}
+                className="flex flex-col justify-between rounded-2xl bg-[#1E293B] p-8 ring-1 ring-white/10 hover:ring-green-500/50 transition-all hover:-translate-y-1 shadow-xl"
+              >
+                <div>
+                  <div className="flex gap-x-1 text-yellow-400 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <CheckCircle key={i} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <blockquote className="text-lg leading-8 text-white italic">
+                    &ldquo;{testimonial.content}&rdquo;
+                  </blockquote>
+                </div>
+                <div className="mt-8 flex items-center gap-x-4 border-t border-white/5 pt-6">
+                  <div className="relative h-12 w-12 flex-shrink-0">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.author}
+                      fill
+                      className="rounded-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-base font-semibold text-white">{testimonial.author}</div>
+                    <div className="text-sm text-gray-400">{testimonial.role}</div>
+                    <div className="text-xs text-green-500 mt-1">{testimonial.location}</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
