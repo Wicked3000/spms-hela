@@ -130,14 +130,14 @@ export default async function StudentProfilePage({
                 >
                   <FileDown className="h-4 w-4" /> Download Summary
                 </a>
-                {user && student.document_url && (
+                {user && (student.document_url || student.document_path) && (
                   <a
-                    href={student.document_url}
+                    href={student.document_url || `/admin/documents?id=${student.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-lg bg-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/30 transition-colors"
                   >
-                    <FileDown className="h-4 w-4" /> View Transcript
+                    <FileDown className="h-4 w-4" /> View Documents (Admin Only)
                   </a>
                 )}
               </div>
@@ -179,6 +179,35 @@ export default async function StudentProfilePage({
                       <MapPin className="h-4 w-4 text-gray-500" />
                       {student.district}, {student.province}
                     </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+            
+            {/* Identification Documents */}
+            <div className="rounded-2xl bg-[#1E293B] ring-1 ring-white/10 overflow-hidden">
+              <div className="border-b border-white/10 px-6 py-4">
+                <h2 className="font-semibold text-white flex items-center gap-2">
+                  <Award className="h-5 w-5 text-green-400" /> Identification Numbers
+                </h2>
+              </div>
+              <div className="p-6">
+                <dl className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">NID Number</dt>
+                    <dd className="mt-1 text-white">{student.nid_no || 'Not provided'}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">Birth Certificate No</dt>
+                    <dd className="mt-1 text-white">{student.birth_certificate || 'Not provided'}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">Passport Number</dt>
+                    <dd className="mt-1 text-white">{student.passport_no || 'None'}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">Driver&apos;s License</dt>
+                    <dd className="mt-1 text-white">{student.drivers_license || 'None'}</dd>
                   </div>
                 </dl>
               </div>

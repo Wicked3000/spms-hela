@@ -1,7 +1,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { Users, CheckCircle, XCircle, UserPlus, FileSpreadsheet, ArrowRight, GraduationCap, Wrench, AlertCircle } from 'lucide-react'
+import { Users, CheckCircle, XCircle, UserPlus, FileSpreadsheet, ArrowRight, AlertCircle, School } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,6 +9,8 @@ type DashboardStats = {
   totalStudents: number
   tvetStudents: number
   fodeStudents: number
+  totalUniversities: number
+  totalSelections: number
   systemStatus: 'active' | 'inactive'
   error?: string
 }
@@ -17,50 +19,40 @@ async function getDashboardStats(): Promise<DashboardStats> {
   try {
     const supabase = await createClient()
     
-    // Test connection and get total students
-    const { count: totalCount, error: totalError } = await supabase
+    // Total Students
+    const { count: totalCount } = await supabase
       .from('student_profiles')
       .select('*', { count: 'exact', head: true })
 
-    if (totalError) {
-      console.error('Error fetching total students:', totalError)
-      return {
-        totalStudents: 0,
-        tvetStudents: 0,
-        fodeStudents: 0,
-        systemStatus: 'inactive',
-        error: totalError.message
-      }
-    }
-
-    // Get TVET students (those with tvet_trade filled)
-    const { count: tvetCount, error: tvetError } = await supabase
+    // TVET Students
+    const { count: tvetCount } = await supabase
       .from('student_profiles')
       .select('*', { count: 'exact', head: true })
       .not('tvet_trade', 'is', null)
 
-    // Get FODE students (those without tvet_trade)
-    const { count: fodeCount, error: fodeError } = await supabase
+    // FODE Students
+    const { count: fodeCount } = await supabase
       .from('student_profiles')
       .select('*', { count: 'exact', head: true })
       .is('tvet_trade', null)
 
-    // If any query failed, mark as inactive
-    if (tvetError || fodeError) {
-      console.error('Error fetching student counts:', { tvetError, fodeError })
-      return {
-        totalStudents: totalCount || 0,
-        tvetStudents: 0,
-        fodeStudents: 0,
-        systemStatus: 'inactive',
-        error: tvetError?.message || fodeError?.message
-      }
-    }
+    // University Users
+    const { count: uniCount } = await supabase
+      .from('user_profiles')
+      .select('*', { count: 'exact', head: true })
+      .eq('role', 'university')
+
+    // Selections
+    const { count: selectionCount } = await supabase
+      .from('student_selections')
+      .select('*', { count: 'exact', head: true })
 
     return {
       totalStudents: totalCount || 0,
       tvetStudents: tvetCount || 0,
       fodeStudents: fodeCount || 0,
+      totalUniversities: uniCount || 0,
+      totalSelections: selectionCount || 0,
       systemStatus: 'active'
     }
   } catch (error) {
@@ -69,6 +61,8 @@ async function getDashboardStats(): Promise<DashboardStats> {
       totalStudents: 0,
       tvetStudents: 0,
       fodeStudents: 0,
+      totalUniversities: 0,
+      totalSelections: 0,
       systemStatus: 'inactive',
       error: error instanceof Error ? error.message : 'Unknown error'
     }
@@ -115,30 +109,30 @@ export default async function Dashboard() {
           </div>
         </div>
 
-        {/* TVET Students */}
-        <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 hover:ring-orange-500/30 transition-all">
+        {/* Registered Universities */}
+        <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 hover:ring-blue-500/30 transition-all">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500">
-              <Wrench className="h-6 w-6 text-white" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500">
+              <School className="h-6 w-6 text-white" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-400">TVET Students</p>
-              <p className="text-3xl font-bold text-white mt-1">{stats.tvetStudents.toLocaleString()}</p>
-              <p className="text-xs text-gray-500 mt-1">Technical & vocational</p>
+              <p className="text-sm font-medium text-gray-400">Universities</p>
+              <p className="text-3xl font-bold text-white mt-1">{stats.totalUniversities.toLocaleString()}</p>
+              <p className="text-xs text-gray-500 mt-1">Authorized institutions</p>
             </div>
           </div>
         </div>
 
-        {/* FODE Students */}
-        <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 hover:ring-blue-500/30 transition-all">
+        {/* Student Selections */}
+        <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10 hover:ring-purple-500/30 transition-all">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500">
-              <GraduationCap className="h-6 w-6 text-white" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500">
+              <CheckCircle className="h-6 w-6 text-white" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-400">FODE Students</p>
-              <p className="text-3xl font-bold text-white mt-1">{stats.fodeStudents.toLocaleString()}</p>
-              <p className="text-xs text-gray-500 mt-1">Flexible & open distance</p>
+              <p className="text-sm font-medium text-gray-400">Total Selections</p>
+              <p className="text-3xl font-bold text-white mt-1">{stats.totalSelections.toLocaleString()}</p>
+              <p className="text-xs text-gray-500 mt-1">Shortlisted candidates</p>
             </div>
           </div>
         </div>
@@ -167,7 +161,7 @@ export default async function Dashboard() {
                 {stats.systemStatus === 'active' ? 'Active' : 'Inactive'}
               </p>
               <p className="text-xs text-gray-500 mt-1">
-                {stats.systemStatus === 'active' ? 'All systems operational' : 'Connection issues detected'}
+                {stats.systemStatus === 'active' ? 'Operational' : 'Issues detected'}
               </p>
             </div>
           </div>
@@ -177,7 +171,7 @@ export default async function Dashboard() {
       {/* Quick Actions */}
       <div className="mb-8">
         <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/admin/students"
             className="group flex items-center gap-4 rounded-xl bg-[#0F172A] p-5 ring-1 ring-white/10 hover:ring-green-500/50 transition-all"
@@ -186,36 +180,50 @@ export default async function Dashboard() {
               <Users className="h-5 w-5 text-green-400 group-hover:text-white transition-colors" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-white">View All Students</h3>
-              <p className="text-sm text-gray-500">Manage student profiles</p>
+              <h3 className="font-medium text-white">Students</h3>
+              <p className="text-xs text-gray-500">Manage profiles</p>
             </div>
             <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-green-400 transition-colors" />
+          </Link>
+
+          <Link
+            href="/admin/universities"
+            className="group flex items-center gap-4 rounded-xl bg-[#0F172A] p-5 ring-1 ring-white/10 hover:ring-blue-500/50 transition-all shadow-lg shadow-blue-500/5"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 group-hover:bg-blue-500 transition-colors">
+              <School className="h-5 w-5 text-blue-400 group-hover:text-white transition-colors" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-medium text-white">University Access</h3>
+              <p className="text-xs text-gray-500">Grant permissions</p>
+            </div>
+            <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-blue-400 transition-colors" />
           </Link>
 
           <Link
             href="/admin/students/add"
             className="group flex items-center gap-4 rounded-xl bg-[#0F172A] p-5 ring-1 ring-white/10 hover:ring-green-500/50 transition-all"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 group-hover:bg-blue-500 transition-colors">
-              <UserPlus className="h-5 w-5 text-blue-400 group-hover:text-white transition-colors" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 group-hover:bg-emerald-500 transition-colors">
+              <UserPlus className="h-5 w-5 text-emerald-400 group-hover:text-white transition-colors" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-white">Add New Student</h3>
-              <p className="text-sm text-gray-500">Create a new profile</p>
+              <h3 className="font-medium text-white">Add Student</h3>
+              <p className="text-xs text-gray-500">Manual entry</p>
             </div>
-            <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-blue-400 transition-colors" />
+            <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-emerald-400 transition-colors" />
           </Link>
 
           <Link
             href="/admin/import"
-            className="group flex items-center gap-4 rounded-xl bg-[#0F172A] p-5 ring-1 ring-white/10 hover:ring-green-500/50 transition-all"
+            className="group flex items-center gap-4 rounded-xl bg-[#0F172A] p-5 ring-1 ring-white/10 hover:ring-purple-500/50 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/10 group-hover:bg-purple-500 transition-colors">
               <FileSpreadsheet className="h-5 w-5 text-purple-400 group-hover:text-white transition-colors" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-white">Import from Excel</h3>
-              <p className="text-sm text-gray-500">Bulk import students</p>
+              <h3 className="font-medium text-white">Excel Import</h3>
+              <p className="text-xs text-gray-500">Bulk upload</p>
             </div>
             <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-purple-400 transition-colors" />
           </Link>

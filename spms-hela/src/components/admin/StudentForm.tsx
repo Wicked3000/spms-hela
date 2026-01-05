@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
-import { Loader2, Save, X, User, CreditCard, MapPin, GraduationCap, Users, FileText } from 'lucide-react'
+import { Loader2, Save, X, User, CreditCard, MapPin, GraduationCap, Users, FileText, Upload, Trash2, Plus } from 'lucide-react'
 
 type StudentFormData = {
   // Basic Information
@@ -138,9 +138,33 @@ export default function StudentForm({ initialData, studentId }: StudentFormProps
   })
   const [saving, setSaving] = useState(false)
 
+  const [selectedFiles, setSelectedFiles] = useState<{ [key: string]: File }>({})
+
   const handleChange = (field: keyof StudentFormData, value: string | number | null) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
+
+  const handleFileChange = (type: string, file: File | null) => {
+    if (file) {
+      setSelectedFiles(prev => ({ ...prev, [type]: file }))
+    } else {
+      setSelectedFiles(prev => {
+        const next = { ...prev }
+        delete next[type]
+        return next
+      })
+    }
+  }
+
+  const documentTypes = [
+    { id: 'birth_certificate', label: 'Birth Certificate' },
+    { id: 'nid_card', label: 'NID Card' },
+    { id: 'passport', label: 'Passport' },
+    { id: 'grade_10_cert', label: 'Grade 10 Certificate' },
+    { id: 'grade_12_cert', label: 'Grade 12 Certificate' },
+    { id: 'tvet_cert', label: 'TVET Certificate' },
+    { id: 'other', label: 'Other Support Documents' }
+  ]
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -155,6 +179,7 @@ export default function StudentForm({ initialData, studentId }: StudentFormProps
     try {
       const supabase = createClient()
       
+      let student_id = studentId
       let error;
       
       if (studentId) {
@@ -166,40 +191,46 @@ export default function StudentForm({ initialData, studentId }: StudentFormProps
         error = updateError
       } else {
         // Create new student
-        const { error: insertError } = await supabase
+        const { data: insertedData, error: insertError } = await supabase
           .from('student_profiles')
           .insert([formData])
+          .select()
         error = insertError
+        if (insertedData?.[0]) {
+          student_id = insertedData[0].id
+        }
       }
 
       if (error) throw error
+      if (!student_id) throw new Error('Could not determine student ID for file upload')
+
+      // Handle File Uploads
+      const fileEntries = Object.entries(selectedFiles)
+      if (fileEntries.length > 0) {
+        toast.info(`Uploading ${fileEntries.length} documents...`)
+        for (const [type, file] of fileEntries) {
+          const fileName = `${type}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
+          const filePath = `${student_id}/${fileName}`
+          
+          const { error: uploadError } = await supabase.storage
+            .from('student_documents')
+            .upload(filePath, file)
+            
+          if (uploadError) {
+            console.error(`Error uploading ${type}:`, uploadError)
+            toast.error(`Failed to upload ${type}`)
+          }
+        }
+      }
 
       toast.success(studentId ? 'Student profile updated successfully!' : 'Student profile created successfully!')
       
-      // Reset form if creating new, or redirect if updating
-      if (!studentId) {
-        setFormData(initialFormData)
-      }
-      
-      // Redirect to students list after 1 second
-      setTimeout(() => {
-        router.push('/admin/students')
-      }, 1000)
-
-      if (error) throw error
-
-      toast.success('Student profile created successfully!')
-      
-      // Reset form
-      setFormData(initialFormData)
-      
-      // Redirect to students list after 1 second
-      setTimeout(() => {
-        router.push('/admin/students')
-      }, 1000)
+      // Redirect to students list after success
+      router.push('/admin/students')
+      router.refresh()
     } catch (error) {
-      console.error('Error creating student:', error)
-      toast.error(error instanceof Error ? error.message : 'Failed to create student profile')
+      console.error('Submit error:', error)
+      toast.error(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setSaving(false)
     }
@@ -243,6 +274,7 @@ export default function StudentForm({ initialData, studentId }: StudentFormProps
               Gender <span className="text-red-400">*</span>
             </label>
             <select
+              aria-label="Select gender"
               required
               value={formData.gender}
               onChange={(e) => handleChange('gender', e.target.value)}
@@ -268,6 +300,7 @@ export default function StudentForm({ initialData, studentId }: StudentFormProps
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-300 mb-2">Date of Birth</label>
             <input
+              aria-label="Enter date of birth"
               type="date"
               value={formData.dob}
               onChange={(e) => handleChange('dob', e.target.value)}
@@ -882,6 +915,70 @@ export default function StudentForm({ initialData, studentId }: StudentFormProps
               placeholder="Phone number"
             />
           </div>
+        </div>
+      </div>
+
+      {/* Student Documents Section */}
+      <div className="rounded-xl bg-[#0F172A] p-6 ring-1 ring-white/10">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/10">
+            <Upload className="h-5 w-5 text-orange-400" />
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold text-white">Student Documents</h2>
+            <p className="text-sm text-gray-400">Upload certificates, IDs, and transcripts</p>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {documentTypes.map((doc) => (
+            <div key={doc.id} className="relative p-4 rounded-lg bg-[#1E293B] border border-white/5 hover:border-orange-500/30 transition-all">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                {doc.label}
+              </label>
+              
+              <div className="flex items-center gap-3">
+                <div className="relative flex-1">
+                  <input
+                    type="file"
+                    id={`file-${doc.id}`}
+                    className="hidden"
+                    onChange={(e) => handleFileChange(doc.id, e.target.files?.[0] || null)}
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+                  <label
+                    htmlFor={`file-${doc.id}`}
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0F172A] border border-white/10 rounded-lg text-sm text-gray-400 hover:text-white hover:border-white/20 cursor-pointer transition-all w-full"
+                  >
+                    {selectedFiles[doc.id] ? (
+                      <span className="text-green-400 truncate max-w-[200px]">
+                        {selectedFiles[doc.id].name}
+                      </span>
+                    ) : (
+                      <>
+                        <Plus className="h-4 w-4" />
+                        Select File
+                      </>
+                    )}
+                  </label>
+                </div>
+                
+                {selectedFiles[doc.id] && (
+                  <button
+                    type="button"
+                    onClick={() => handleFileChange(doc.id, null)}
+                    className="p-2.5 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-all"
+                    title="Remove file"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <p className="mt-2 text-[10px] text-gray-500">
+                Accepted formats: PDF, JPG, PNG (Max 5MB)
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 

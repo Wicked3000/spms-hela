@@ -16,7 +16,8 @@ import {
   FolderOpen,
   Shield,
   BookOpen,
-  MessageSquare
+  MessageSquare,
+  School
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -29,6 +30,7 @@ const navigation = [
   { name: 'Helpful Resources', href: '/admin/resources', icon: FolderOpen },
   { name: 'Policy Documents', href: '/admin/policies', icon: Shield },
   { name: 'Curriculum', href: '/admin/curriculum', icon: BookOpen },
+  { name: 'University Access', href: '/admin/universities', icon: School },
   { name: 'Messages', href: '/admin/messages', icon: MessageSquare },
 ]
 

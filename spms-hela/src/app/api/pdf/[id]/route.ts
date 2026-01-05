@@ -56,6 +56,11 @@ export async function GET(
   addRow('School Name', student.school_name)
   addRow('Year Completed', student.year_completed)
   addRow('Certificate No', student.certificate_no)
+  addRow('NID Number', student.nid_no)
+  addRow('Birth Certificate No', student.birth_certificate)
+  if (student.passport_no) {
+    addRow('Passport Number', student.passport_no)
+  }
   if (student.tvet_trade) {
     addRow('TVET Trade', student.tvet_trade)
   }
